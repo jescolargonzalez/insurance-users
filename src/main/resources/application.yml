@@ -1,0 +1,20 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ''
+    url: jdbc:mysql://localhost/aseguradora?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 3MB
