@@ -11,9 +11,8 @@ spring:
     username: root
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
+    generate-ddl: false
+
   servlet:
     multipart:
       max-file-size: 3MB
