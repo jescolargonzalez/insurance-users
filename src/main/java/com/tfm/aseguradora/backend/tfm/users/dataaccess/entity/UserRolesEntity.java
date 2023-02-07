@@ -1,11 +1,14 @@
 package com.tfm.aseguradora.backend.tfm.users.dataaccess.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "roles")
 public class UserRoles {
@@ -23,7 +26,7 @@ public class UserRoles {
             joinColumns = @JoinColumn(name = "rol_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="user_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @ManyToMany()
     private List<UserRoles> roles;
 
 }
