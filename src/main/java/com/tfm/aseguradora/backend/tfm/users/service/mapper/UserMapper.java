@@ -6,5 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = RolMapper.class)
 public interface UserMapper {
+
     User frontEntityToDomain(UserEntity userEntity);
 }

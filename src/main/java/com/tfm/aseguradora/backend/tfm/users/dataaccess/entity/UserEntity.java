@@ -17,15 +17,15 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column(name = "dni")
     private String dni;
-
+    @Column(name = "nombre")
     private String nombre;
-
+    @Column(name = "apellidos")
     private String apellidos;
-
+    @Column(name = "mail")
     private String mail;
-
+    @Column(name = "pass")
     private String pass;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)

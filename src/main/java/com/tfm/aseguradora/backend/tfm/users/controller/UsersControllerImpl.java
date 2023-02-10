@@ -1,7 +1,9 @@
 package com.tfm.aseguradora.backend.tfm.users.controller;
 
 
+import com.tfm.aseguradora.backend.tfm.users.controller.mapper.UserDtoMapper;
 import com.tfm.aseguradora.backend.tfm.users.service.JwtUtilService;
+import com.tfm.aseguradora.backend.tfm.users.service.UserService;
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.TokenInfo;
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.User;
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.UserAuthentication;
@@ -31,6 +33,12 @@ public class UsersControllerImpl implements UsersApi {
 
     @Autowired
     private JwtUtilService jwtUtilService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserDtoMapper userDtoMapper;
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
@@ -68,7 +76,9 @@ public class UsersControllerImpl implements UsersApi {
 
     @Override
     public ResponseEntity<User> getUserById(String id) {
-        return UsersApi.super.getUserById(id);
+        com.tfm.aseguradora.backend.tfm.users.service.domain.User aux = userService.findById(Integer.parseInt(id));
+        return ResponseEntity.ok(userDtoMapper.domainToDTO(aux));
+
     }
 
     @Override
