@@ -1,11 +1,13 @@
 package com.tfm.aseguradora.backend.tfm.users.dataaccess.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -26,8 +28,8 @@ public class UserEntity {
 
     private String pass;
 
-    @ManyToMany(mappedBy = "roles" , fetch = FetchType.EAGER)
-    private List<UserRoles> roles;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private List<UserRolesEntity> roles;
 
 
 

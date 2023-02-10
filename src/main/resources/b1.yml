@@ -197,7 +197,8 @@ components:
           example: 666 66 66 66
         birthday:
           type: string
-          format: Date <'Y-m-d'>
+          format: Date <'m-d-Y'>
+#definicion formato fecha TODO
         userStatus:
           type: integer
           description: User Status

@@ -1,6 +1,5 @@
 package com.tfm.aseguradora.backend.tfm.users.dataaccess.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "roles")
-public class UserRoles {
+public class UserRolesEntity {
 
     private static final long serialVersionUID = -912412431249214L;
 
@@ -27,6 +26,6 @@ public class UserRoles {
             inverseJoinColumns = @JoinColumn(name="user_id", nullable = false)
     )
     @ManyToMany()
-    private List<UserRoles> roles;
+    private List<UserRolesEntity> roles;
 
 }
