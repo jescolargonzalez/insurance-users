@@ -281,9 +281,12 @@ components:
           type: string
         kilometros:
           type: integer
+        userId:
+          type: integer
       required:
         - marca
         - modelo
+        - userId
         - fechaMatriculacion
         - matricula
         - kilometros

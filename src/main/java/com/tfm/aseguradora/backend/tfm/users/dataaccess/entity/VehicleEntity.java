@@ -43,7 +43,8 @@ public class VehicleEntity {
     @Column(name = "deleted")
     private Boolean deleted;
 
-    @ManyToMany(mappedBy = "vehicles")
-    private List<UserEntity> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

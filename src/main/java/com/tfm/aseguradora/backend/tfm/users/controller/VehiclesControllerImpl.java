@@ -5,7 +5,7 @@ import com.tfm.aseguradora.backend.tfm.users.service.*;
 import com.tfm.aseguradora.backend.tfm.users.service.exception.*;
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.*;
 
@@ -21,6 +21,9 @@ public class VehiclesControllerImpl implements VehiclesApi {
     @Autowired
     private VehicleDtoMapper vehicleDtoMapper;
 
+    @Autowired
+    private VehiclesService vehiclesService;
+
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
@@ -29,7 +32,18 @@ public class VehiclesControllerImpl implements VehiclesApi {
 
     @Override
     public ResponseEntity<VehicleDto> createVehicle(VehicleDto vehicleDto) {
-        return VehiclesApi.super.createVehicle(vehicleDto);
+        try {
+            var vehicleDomain = vehicleDtoMapper.fromDtoToDomain(vehicleDto);
+
+            vehicleDomain = vehiclesService.save(vehicleDomain);
+
+            vehicleDto = vehicleDtoMapper.fromDomainToDto(vehicleDomain);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(vehicleDto);
+        } catch (ResourceNotFoundException ex) {
+            throw new BadRequestException("Resource " + ex.getResourceClass() + " with id " +
+                    ex.getResourceIdentifier() + " in the request body does not exist.");
+        }
     }
 
     @Override

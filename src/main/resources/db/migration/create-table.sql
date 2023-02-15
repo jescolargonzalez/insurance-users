@@ -90,19 +90,20 @@ insert into aseguradora.users_roles (user_id, rol_id)
 values (1, 3);
 
 
-CREATE TABLE `vehicles`
-(
-    `id`                  int(11) NOT NULL AUTO_INCREMENT,
-    `matricula`           varchar(45) NOT NULL,
-    `marca`               varchar(45) NOT NULL,
-    `modelo`              varchar(45) NOT NULL,
-    `fecha_matriculacion` date        NOT NULL,
-    `kilometros`          int(11) NOT NULL,
-    `create_time`         timestamp   NOT NULL DEFAULT current_timestamp(),
-    `update_time`         timestamp   NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp (),
-    `deleted`             tinyint(4) GENERATED ALWAYS AS (0) VIRTUAL,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `vehicles` (
+                            `id` int(11) NOT NULL AUTO_INCREMENT,
+                            `matricula` varchar(45) NOT NULL,
+                            `marca` varchar(45) NOT NULL,
+                            `modelo` varchar(45) NOT NULL,
+                            `fecha_matriculacion` date NOT NULL,
+                            `kilometros` int(11) NOT NULL,
+                            `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
+                            `update_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+                            `deleted` tinyint(4) GENERATED ALWAYS AS (0) VIRTUAL,
+                            `user_id` int(11) NOT NULL,
+                            PRIMARY KEY (`id`),
+                            FOREIGN KEY(`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 
 
@@ -111,25 +112,11 @@ INSERT INTO `aseguradora`.`vehicles`
  `marca`,
  `modelo`,
  `fecha_matriculacion`,
- `kilometros`)
+ `kilometros`,
+ `user_id`)
 VALUES ('9579-JRX',
         'Peugeot',
         '508',
         '2016-01-01',
-        200000);
-
-
-
-CREATE TABLE `users_vehicles`
-(
-    `user_id`    int(11) NOT NULL,
-    `vehicle_id` int(11) NOT NULL,
-    PRIMARY KEY (`user_id`, `vehicle_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-INSERT INTO `aseguradora`.`users_vehicles`
-(`user_id`,
- `vehicle_id`)
-VALUES (11,
-        1);
+        200000,
+        11);

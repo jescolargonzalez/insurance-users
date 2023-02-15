@@ -17,4 +17,6 @@ public class VehicleDomain {
 
     private Integer kilometros;
 
+    private Integer userId;
+
 }

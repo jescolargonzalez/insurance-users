@@ -19,61 +19,55 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private UserDetailsService usuarioDetailsService;
+    @Autowired
+    private UserDetailsService usuarioDetailsService;
 
-  @Autowired
-  private JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Override
-  @Bean
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http
-        //.httpBasic(withDefaults())  // (1)
-        .csrf().disable() // (2)
-        .authorizeRequests()
-        .antMatchers("/security/authenticate").permitAll()
-        .antMatchers(HttpMethod.POST, "/users").permitAll()
-        .antMatchers("/admin/**").hasRole("ADMIN")
-        .anyRequest().authenticated()
-        .and().cors()
-        .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                //.httpBasic(withDefaults())  // (1)
+                .csrf().disable() // (2)
+                .authorizeRequests()
+                .antMatchers("/security/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/swagger/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and().cors()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-  }
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(usuarioDetailsService);
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(usuarioDetailsService);
+    }
+
+
 
     /*
-    auth
-        .inMemoryAuthentication()
-        .withUser("jcabelloc").password("{noop}" + "secreto").roles("USER")
-        .and()
-        .withUser("mlopez").password("{noop}" + "secreto").roles("ADMIN");
-     */
-  }
-
-
-
-  /*
-  * (1) Spring Security’s HTTP Basic Authentication support in is enabled by default. However, as soon as any servlet
-  * based configuration is provided, HTTP Basic must be explicitly provided.
-  * (2) If our stateless API uses token-based authentication, such as JWT, we don't need CSRF protection
-  *
-  *
-  * */
+     * (1) Spring Security’s HTTP Basic Authentication support in is enabled by default. However, as soon as any servlet
+     * based configuration is provided, HTTP Basic must be explicitly provided.
+     * (2) If our stateless API uses token-based authentication, such as JWT, we don't need CSRF protection
+     *
+     *
+     * */
 }

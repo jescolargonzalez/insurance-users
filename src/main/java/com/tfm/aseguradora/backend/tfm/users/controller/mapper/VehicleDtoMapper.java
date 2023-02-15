@@ -7,7 +7,8 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface VehicleDtoMapper {
-
     VehicleDto fromDomainToDto(VehicleDomain domain);
+
+    VehicleDomain fromDtoToDomain(VehicleDto vehicleDto);
 
 }
