@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "roles")
-public class UserRolesEntity {
+public class RolEntity {
 
     private static final long serialVersionUID = -912412431249214L;
 
@@ -22,12 +22,10 @@ public class UserRolesEntity {
     @Column(name = "nombre")
     private String nombre;
 
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "rol_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="user_id", nullable = false)
-    )
-    @ManyToMany()
-    private List<UserRolesEntity> roles;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<UserEntity> users;
+
+
 
 }

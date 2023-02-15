@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -57,9 +57,32 @@ public class UserEntity {
     private LocalDate update_time;
 
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private List<UserRolesEntity> roles;
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="rol_id", nullable = false)
+    )
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<RolEntity> roles;
 
-
-
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", pais='" + pais + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", address='" + address + '\'' +
+                ", iban='" + iban + '\'' +
+                ", birthdate=" + birthdate +
+                ", picture=" + Arrays.toString(picture) +
+                ", create_time=" + create_time +
+                ", update_time=" + update_time +
+                ", roles=" + roles +
+                '}';
+    }
 }

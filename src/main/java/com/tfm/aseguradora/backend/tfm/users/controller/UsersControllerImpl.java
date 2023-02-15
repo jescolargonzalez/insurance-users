@@ -7,7 +7,7 @@ import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.UsersApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -34,19 +34,15 @@ public class UsersControllerImpl implements UsersApi {
     @Override
     public ResponseEntity<UserDto> createUser(UserDto userDto) {
 
-        var userDomain = userDtoMapper.dtoToDomain(userDto);
+        var userDomain = userDtoMapper.fromDtoToDomain(userDto);
 
-        userService.save(userDomain);
+        userDomain = userService.save(userDomain);
 
-        // DESDE AQUI TENDRÁS QUE LLAMAR A UserService, tendrás que crear un metodo que se lllamara save y que recibira como parametro
-        // un objeto ed DOMINIO User. Dado que el controlador recibe un objeto DTO, tendrás que implemetnar un metodo que convierte
-        // de dto a dominio. Tendrás que llamar a este mapper antes de llamar al servicio.
-        //
-        // luego, haremos lo propio para convertir en el servicio de Usuario DOMINIO a Usuario ENTITY y en este punto tendrwemos el objeto listo para perisist
+        var userDtoResponse = userDtoMapper.fromDomainToDTO(userDomain);
 
-
-
-        return null ;
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userDtoResponse);
     }
 
     @Override
@@ -57,7 +53,7 @@ public class UsersControllerImpl implements UsersApi {
     @Override
     public ResponseEntity<UserDto> getUserById(String id) {
         UserDomain aux = userService.findById(Integer.parseInt(id));
-        return ResponseEntity.ok(userDtoMapper.domainToDTO(aux));
+        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
     }
 
     @Override
