@@ -1,13 +1,12 @@
 package com.tfm.aseguradora.backend.tfm.users.service.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.util.List;
 @Data
-public class User {
+public class UserDomain {
+
     private Integer id;
 
     private String dni;
@@ -34,6 +33,6 @@ public class User {
 
     private byte[] picture;
 
-    private List<UserRol> roles;
+    private List<RolDomain> roles;
 
 }

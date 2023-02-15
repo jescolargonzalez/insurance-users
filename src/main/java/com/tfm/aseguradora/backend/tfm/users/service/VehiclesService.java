@@ -1,6 +1,6 @@
 package com.tfm.aseguradora.backend.tfm.users.service;
 
-import com.tfm.aseguradora.backend.tfm.users.service.domain.Vehicle;
+import com.tfm.aseguradora.backend.tfm.users.service.domain.VehicleDomain;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 public class VehiclesService {
 
     @Transactional
-    void save(List<Vehicle> vehicles) {
+    void save(List<VehicleDomain> vehicleDomains) {
 
-        for (Vehicle vehicle : vehicles) {
+        for (VehicleDomain vehicleDomain : vehicleDomains) {
             // SE LLAMARIA A REPOSITORIO JPA
         }
 

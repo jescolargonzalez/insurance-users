@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS aseguradora.users (
                          `birthdate` date DEFAULT NULL,
                          `picture` blob DEFAULT NULL,
                          `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
-                         `update_time` timestamp NOT NULL DEFAULT current_timestamp(),
+                         `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

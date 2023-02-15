@@ -1,20 +1,27 @@
 package com.tfm.aseguradora.backend.tfm.users.controller;
 
-import com.tfm.aseguradora.generated.backend.tfm.users.controller.Vehicle;
-import com.tfm.aseguradora.generated.backend.tfm.users.controller.VehiclesApi;
+import com.tfm.aseguradora.generated.backend.tfm.users.controller.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.*;
+
+import java.util.*;
 
 @RestController
 public class VehiclesControllerImpl implements VehiclesApi {
 
     @Override
-    public ResponseEntity<Vehicle> createVehicle(Vehicle vehicle) {
-        return VehiclesApi.super.createVehicle(vehicle);
+    public Optional<NativeWebRequest> getRequest() {
+        return VehiclesApi.super.getRequest();
     }
 
     @Override
-    public ResponseEntity<Vehicle> getVehicleByDni(String dniPropietario) {
+    public ResponseEntity<VehicleDto> createVehicle(VehicleDto vehicleDto) {
+        return VehiclesApi.super.createVehicle(vehicleDto);
+    }
+
+    @Override
+    public ResponseEntity<VehicleDto> getVehicleByDni(String dniPropietario) {
         return VehiclesApi.super.getVehicleByDni(dniPropietario);
     }
 

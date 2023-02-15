@@ -1,7 +1,7 @@
 package com.tfm.aseguradora.backend.tfm.users.service.mapper;
 
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
-import com.tfm.aseguradora.backend.tfm.users.service.domain.User;
+import com.tfm.aseguradora.backend.tfm.users.service.domain.UserDomain;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,5 +9,6 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
     @Mapping(source = "pass", target = "pass", ignore = true)
-    User frontEntityToDomain(UserEntity userEntity);
+    UserDomain frontEntityToDomain(UserEntity userEntity);
+
 }

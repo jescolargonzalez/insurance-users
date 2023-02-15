@@ -2,6 +2,7 @@ package com.tfm.aseguradora.backend.tfm.users.controller;
 
 
 import com.tfm.aseguradora.backend.tfm.users.service.JwtUtilService;
+import com.tfm.aseguradora.generated.backend.tfm.users.controller.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-public class SecurityControllerImpl implements com.tfm.aseguradora.generated.backend.tfm.users.controller.SecurityApi {
+public class SecurityControllerImpl implements SecurityApi {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -26,8 +27,8 @@ public class SecurityControllerImpl implements com.tfm.aseguradora.generated.bac
 
 
     @Override
-    public ResponseEntity<com.tfm.aseguradora.generated.backend.tfm.users.controller.TokenInfo>
-        authenticateUser(com.tfm.aseguradora.generated.backend.tfm.users.controller.UserAuthentication userAuthentication) {
+    public ResponseEntity<TokenInfoDto>
+    authenticateUser(UserAuthenticationDto userAuthentication) {
         log.info("Autenticando al usuario {}", userAuthentication.getUsuario());
 
         authenticationManager.authenticate(
@@ -39,12 +40,10 @@ public class SecurityControllerImpl implements com.tfm.aseguradora.generated.bac
 
         final String jwt = jwtUtilService.generateToken(userDetails);
 
-        com.tfm.aseguradora.generated.backend.tfm.users.controller.TokenInfo tokenInfo =
-                new com.tfm.aseguradora.generated.backend.tfm.users.controller.TokenInfo();
+        TokenInfoDto tokenInfo = new TokenInfoDto();
         tokenInfo.setJwtToken(jwt);
 
         return ResponseEntity.ok(tokenInfo);
     }
-
 
 }

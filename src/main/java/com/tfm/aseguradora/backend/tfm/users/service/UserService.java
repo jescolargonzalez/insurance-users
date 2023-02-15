@@ -2,7 +2,7 @@ package com.tfm.aseguradora.backend.tfm.users.service;
 
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.repository.UserJpaRepository;
-import com.tfm.aseguradora.backend.tfm.users.service.domain.User;
+import com.tfm.aseguradora.backend.tfm.users.service.domain.UserDomain;
 import com.tfm.aseguradora.backend.tfm.users.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,15 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User findById(int id){
+    public UserDomain findById(int id){
         Optional<UserEntity> entityOptional = userJpaRepository.findById(id);
         if(entityOptional.isPresent()){
            return userMapper.frontEntityToDomain(entityOptional.get());
         }
         return null;
+    }
+    public void save(UserDomain userDomain){
+
+
     }
 }

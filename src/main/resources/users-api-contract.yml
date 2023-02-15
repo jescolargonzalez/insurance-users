@@ -16,7 +16,7 @@ paths:
     post:
       tags:
         - user
-      summary: Create user
+      summary: Generate Token
       description: This can only be done by the logged in user.
       operationId: authenticateUser
       requestBody:
@@ -198,12 +198,14 @@ components:
         birthday:
           type: string
           format: Date <'m-d-Y'>
-#definicion formato fecha TODO
-        userStatus:
-          type: integer
-          description: User Status
-          format: int32
-          example: 1
+        ciudad:
+          type: string
+        pais:
+          type: string
+        roles:
+          type: array
+          items:
+            type: integer
       required:
         - dni
         - name

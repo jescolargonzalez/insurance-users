@@ -150,8 +150,9 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/b1.yml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/users-api-contract.yml</inputSpec>
 							<language>spring</language>
+							<modelNameSuffix>Dto</modelNameSuffix>
 							<apiPackage>com.tfm.aseguradora.generated.backend.tfm.users.controller</apiPackage>
 							<modelPackage>com.tfm.aseguradora.generated.backend.tfm.users.controller</modelPackage>
 							<configOptions>
