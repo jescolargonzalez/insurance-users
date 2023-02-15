@@ -33,10 +33,11 @@ public class UserService {
         if(entityOptional.isPresent()){
            return userMapper.frontEntityToDomain(entityOptional.get());
         }
-        return null;
+        else {
+            throw new ResourceNotFoundException(UserDomain.class, id);
+        }
     }
     public UserDomain save(UserDomain userDomain){
-        // OBTENEMOS LOS IDS DE LOS ROLES PARA PODER OBTENERLOS DE BBDD
         var rolesIds = userDomain.getRoles().stream().map(RolDomain::getId)
                 .collect(Collectors.toList());
 
@@ -58,6 +59,20 @@ public class UserService {
         if (userOpt.isPresent()) {
             var user = userOpt.get();
             user.setDeleted(Boolean.TRUE);
+        }
+        else {
+            throw new ResourceNotFoundException(UserDomain.class, id);
+        }
+    }
+
+    @Transactional
+    public UserDomain updateUserById(Integer id, UserDomain userDomain) {
+        var userOpt = userJpaRepository.findById(id);
+
+        if (userOpt.isPresent()) {
+            var userEntity = userOpt.get();
+            userEntity = userMapper.update(userEntity, userDomain);
+            return userMapper.frontEntityToDomain(userEntity);
         }
         else {
             throw new ResourceNotFoundException(UserDomain.class, id);

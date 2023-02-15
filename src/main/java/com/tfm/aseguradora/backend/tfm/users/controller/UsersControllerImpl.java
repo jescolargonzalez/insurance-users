@@ -59,7 +59,14 @@ public class UsersControllerImpl implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<Void> updateUser(String id, UserDto user) {
-        return UsersApi.super.updateUser(id, user);
+    public ResponseEntity<UserDto> updateUser(String id, UserDto userDto) {
+        userDto.setId(Long.valueOf(id));
+
+        var userDomain = userDtoMapper.fromDtoToDomain(userDto);
+
+        userDomain = userService.updateUserById(Integer.parseInt(id), userDomain);
+
+        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(userDomain));
     }
+
 }

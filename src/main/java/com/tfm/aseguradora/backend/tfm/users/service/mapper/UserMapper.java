@@ -2,8 +2,7 @@ package com.tfm.aseguradora.backend.tfm.users.service.mapper;
 
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.UserDomain;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = RolMapper.class)
 public interface UserMapper {
@@ -14,5 +13,6 @@ public interface UserMapper {
     @Mapping(source = "roles", target = "roles", ignore = true)
     UserEntity fromDomainToEntity(UserDomain userDomain);
 
+    UserEntity update(@MappingTarget UserEntity entity, UserDomain domain);
 
 }
