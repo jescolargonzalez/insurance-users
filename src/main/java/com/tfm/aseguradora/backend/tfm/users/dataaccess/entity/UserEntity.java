@@ -68,6 +68,15 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RolEntity> roles;
 
+
+    @JoinTable(
+            name = "users_vehicles",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="vehicle_id", nullable = false)
+    )
+    @ManyToMany
+    private List<VehicleEntity> vehicles;
+
     @Override
     public String toString() {
         return "UserEntity{" +

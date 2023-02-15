@@ -7,8 +7,6 @@ public class VehicleDomain {
 
     private Integer id;
 
-    private String dniPropietario;
-
     private String matricula;
 
     private String marca;
@@ -18,6 +16,5 @@ public class VehicleDomain {
     private String fechaMatriculacion;
 
     private Integer kilometros;
-
 
 }

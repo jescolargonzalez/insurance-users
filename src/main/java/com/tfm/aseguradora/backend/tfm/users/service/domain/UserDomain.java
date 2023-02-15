@@ -35,4 +35,6 @@ public class UserDomain {
 
     private List<RolDomain> roles;
 
+    private List<VehicleDomain> vehicles;
+
 }

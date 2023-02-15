@@ -79,4 +79,16 @@ public class UserService {
         }
     }
 
+    public UserDomain findByDni(String dniPropietario) {
+
+        var userOpt = userJpaRepository.findByDni(dniPropietario);
+
+        if(userOpt.isPresent()) {
+            return userMapper.frontEntityToDomain(userOpt.get());
+        }
+        else {
+            throw new ResourceNotFoundException(UserDomain.class, dniPropietario);
+        }
+    }
+
 }

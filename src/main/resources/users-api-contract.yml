@@ -143,9 +143,9 @@ paths:
     get:
       tags:
         - vehicle
-      summary: Find vehicle by dniPropietario
+      summary: Find vehicles by dniPropietario
       description: returns vehicles by dniPropietario
-      operationId: getVehicleByDni
+      operationId: getVehiclesByDni
       parameters:
         - name: dniPropietario
           in: query
@@ -159,7 +159,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vehicle'
+                $ref: '#/components/schemas/VehiclesListWrapper'
         '400':
           description: Invalid dniPropietario supplied
           content:
@@ -249,6 +249,15 @@ components:
         - address
         - password
         - phone
+
+    VehiclesListWrapper:
+      type: object
+      properties:
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vehicle'
+
     Vehicle:
       type: object
       properties:
@@ -256,9 +265,6 @@ components:
           type: integer
           format: int64
           example: 10
-        dniPropietario:
-          type: string
-          description: dni propietario del vehiculo != al dni tomadorseguro
         marca:
           type: string
           description: marca del vehiculo
@@ -273,11 +279,14 @@ components:
           example: 2023-1-1
         matricula:
           type: string
+        kilometros:
+          type: integer
       required:
         - marca
         - modelo
         - fechaMatriculacion
         - matricula
+        - kilometros
 
     UserAuthentication:
       type: object

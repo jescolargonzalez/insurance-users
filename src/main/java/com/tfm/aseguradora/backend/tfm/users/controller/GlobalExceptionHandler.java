@@ -22,4 +22,15 @@ public class GlobalExceptionHandler {
         return message;
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessageDto badRequestException(BadRequestException ex, WebRequest request) {
+        ErrorMessageDto message = new ErrorMessageDto();
+        message.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        message.setTimestamp(OffsetDateTime.now());
+        message.setMessage("Bad Request: some parameter are wrong");
+        message.setDescription(ex.getMessage());
+        return message;
+    }
+
 }

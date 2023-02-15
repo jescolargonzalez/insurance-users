@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.*;
 import java.util.List;
 
 @Getter
@@ -15,10 +16,8 @@ public class VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "dniPropietario")
-    private String dniPropietario;
 
     @Column(name = "matricula")
     private String matricula;
@@ -29,18 +28,22 @@ public class VehicleEntity {
     @Column(name = "modelo")
     private String modelo;
 
-    @Column(name = "fechaMatriculacion")
+    @Column(name = "fecha_matriculacion")
     private String fechaMatriculacion;
 
     @Column(name = "kilometros")
     private String kilometros;
 
-    @JoinTable(
-            name = "users_vehicles",
-            joinColumns = @JoinColumn(name = "vehicle_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="user_id", nullable = false)
-    )
-    @ManyToMany()
-    private List<VehicleEntity> vehicles;
+    @Column(name = "create_time")
+    private LocalDate create_time;
+
+    @Column(name = "update_time")
+    private LocalDate update_time;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    @ManyToMany(mappedBy = "vehicles")
+    private List<UserEntity> users;
 
 }
