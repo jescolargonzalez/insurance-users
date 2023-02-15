@@ -20,7 +20,6 @@ public class User {
 
     private String pass;
 
-//extends operator - client
     private String address;
 
     private String iban;
@@ -28,6 +27,12 @@ public class User {
     private String phone;
 
     private String birthdate;
+
+    private String pais;
+
+    private String ciudad;
+
+    private byte[] picture;
 
     private List<UserRol> roles;
 

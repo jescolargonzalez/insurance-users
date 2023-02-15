@@ -1,17 +1,27 @@
-CREATE TABLE IF NOT EXISTS aseguradora.users
-(
-    id        INT           NOT NULL AUTO_INCREMENT,
-    nombre    VARCHAR(45)   NOT NULL,
-    apellidos VARCHAR(45)   NOT NULL,
-    dni       VARCHAR(10)   NOT NULL,
-    mail      VARCHAR(255)   NOT NULL,
-    pass      VARCHAR(1000) NOT NULL,
-    PRIMARY KEY (id)
-);
+CREATE TABLE IF NOT EXISTS aseguradora.users (
+                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                         `nombre` varchar(45) NOT NULL,
+                         `apellidos` varchar(45) NOT NULL,
+                         `dni` varchar(10) NOT NULL,
+                         `mail` varchar(255) NOT NULL,
+                         `pass` varchar(1000) NOT NULL,
+                         `phone` varchar(15) NOT NULL,
+                         `pais` varchar(45) NOT NULL,
+                         `ciudad` varchar(45) NOT NULL,
+                         `address` varchar(255) NOT NULL,
+                         `iban` varchar(45) NOT NULL,
+                         `birthdate` date DEFAULT NULL,
+                         `picture` blob DEFAULT NULL,
+                         `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
+                         `update_time` timestamp NOT NULL DEFAULT current_timestamp(),
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 INSERT INTO aseguradora.users ( nombre
-                              , apellidos, dni, mail, pass)
-values ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', 'chicochicochico');
+                              , apellidos, dni, mail, pass, phone , pais , ciudad , address , iban , birthdate)
+values ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', '$12$kTxd0.l1s2TnF5uC3B75HeUSD1Snlpl1/v7cQNZCBy6/JgTQlipkO' , '666666666' , 'ESP' , 'mdz', 'calle falsa 123' , 'es2312341' ,'1990-02-08');
+
 
 CREATE TABLE IF NOT EXISTS aseguradora.roles
 (
