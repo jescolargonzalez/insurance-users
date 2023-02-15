@@ -16,6 +16,7 @@ public class UserEntity {
     private static final long serialVersionUID = -912412431249214L;
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "dni")
@@ -56,6 +57,8 @@ public class UserEntity {
     @Column(name = "update_time")
     private LocalDate update_time;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
 
     @JoinTable(
             name = "users_roles",

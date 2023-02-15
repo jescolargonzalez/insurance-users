@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.*;
 
 public interface RoleJpaRepository extends JpaRepository<RolEntity, Integer> {
 
+
 }

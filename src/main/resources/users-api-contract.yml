@@ -76,8 +76,16 @@ paths:
                 $ref: '#/components/schemas/User'
         '400':
           description: Invalid username supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
     delete:
       tags:
         - user
@@ -94,8 +102,16 @@ paths:
       responses:
         '400':
           description: Invalid id supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
     put:
       tags:
         - user
@@ -141,8 +157,16 @@ paths:
                 $ref: '#/components/schemas/Vehicle'
         '400':
           description: Invalid dniPropietario supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
     post:
       tags:
         - vehicle
@@ -163,6 +187,10 @@ paths:
                 $ref: '#/components/schemas/Vehicle'
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 components:
   schemas:
     User:
@@ -259,4 +287,18 @@ components:
       type: object
       properties:
         jwtToken:
+          type: string
+
+
+    ErrorMessage:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        description:
           type: string

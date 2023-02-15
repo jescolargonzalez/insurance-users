@@ -3,10 +3,13 @@ package com.tfm.aseguradora.backend.tfm.users.service;
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.repository.*;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
+import com.tfm.aseguradora.backend.tfm.users.service.exception.*;
 import com.tfm.aseguradora.backend.tfm.users.service.mapper.UserMapper;
+import io.swagger.models.auth.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.*;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -46,6 +49,19 @@ public class UserService {
         userEntity = userJpaRepository.save(userEntity);
 
         return userMapper.frontEntityToDomain(userEntity);
+    }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        var userOpt = userJpaRepository.findById(id);
+
+        if (userOpt.isPresent()) {
+            var user = userOpt.get();
+            user.setDeleted(Boolean.TRUE);
+        }
+        else {
+            throw new ResourceNotFoundException(UserDomain.class, id);
+        }
     }
 
 }
