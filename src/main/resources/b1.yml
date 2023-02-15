@@ -12,7 +12,7 @@ tags:
   - name: vehicle
     description: Operations about vehicle
 paths:
-  /users/authenticate:
+  /security/authenticate:
     post:
       tags:
         - user

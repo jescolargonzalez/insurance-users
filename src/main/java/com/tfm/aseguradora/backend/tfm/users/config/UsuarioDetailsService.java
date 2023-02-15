@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users.service;
+package com.tfm.aseguradora.backend.tfm.users.config;
 
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.repository.UserJpaRepository;

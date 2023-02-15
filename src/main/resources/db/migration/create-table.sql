@@ -1,10 +1,10 @@
-CREATE TABLE aseguradora.users
+CREATE TABLE IF NOT EXISTS aseguradora.users
 (
     id        INT           NOT NULL AUTO_INCREMENT,
     nombre    VARCHAR(45)   NOT NULL,
     apellidos VARCHAR(45)   NOT NULL,
-    dni       VARCHAR(45)   NOT NULL,
-    mail      VARCHAR(45)   NOT NULL,
+    dni       VARCHAR(10)   NOT NULL,
+    mail      VARCHAR(255)   NOT NULL,
     pass      VARCHAR(1000) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -13,7 +13,7 @@ INSERT INTO aseguradora.users ( nombre
                               , apellidos, dni, mail, pass)
 values ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', 'chicochicochico');
 
-CREATE TABLE aseguradora.roles
+CREATE TABLE IF NOT EXISTS aseguradora.roles
 (
     id     INT         NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(45) NOT NULL,
@@ -27,7 +27,7 @@ VALUES ('cliente');
 INSERT INTO aseguradora.roles(nombre)
 VALUES ('administrador');
 
-CREATE TABLE aseguradora.users_roles
+CREATE TABLE IF NOT EXISTS aseguradora.users_roles
 (
     user_id INT NOT NULL,
     rol_id  INT NOT NULL,

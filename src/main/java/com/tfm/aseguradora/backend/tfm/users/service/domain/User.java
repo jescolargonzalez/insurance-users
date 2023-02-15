@@ -20,6 +20,7 @@ public class User {
 
     private String pass;
 
+//extends operator - client
     private String address;
 
     private String iban;
