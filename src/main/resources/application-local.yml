@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ''
-    url: jdbc:mysql://localhost/aseguradora?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost/users?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
@@ -10,5 +10,5 @@ spring:
   flyway:
     enabled: true
     locations: classpath:/db/migration
-    schemas: aseguradora
+    schemas: users
     flyway.baseline-on-migrate: true

@@ -22,17 +22,17 @@ CREATE TABLE `users` (
     UNIQUE KEY `idx_users_iban` (`iban`)
 ) engine = innodb auto_increment = 1 DEFAULT charset = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS aseguradora.roles (
+CREATE TABLE IF NOT EXISTS roles (
     id        INT         NOT NULL auto_increment,
     nombre    VARCHAR(45) NOT NULL,
     PRIMARY KEY (id)
 );
 
-INSERT INTO aseguradora.roles (nombre) VALUES ('operador');
-INSERT INTO aseguradora.roles (nombre) VALUES ('cliente');
-INSERT INTO aseguradora.roles (nombre) VALUES ('administrador');
+INSERT INTO roles (nombre) VALUES ('operador');
+INSERT INTO roles (nombre) VALUES ('cliente');
+INSERT INTO roles (nombre) VALUES ('administrador');
 
-CREATE TABLE IF NOT EXISTS aseguradora.users_roles (
+CREATE TABLE IF NOT EXISTS users_roles (
     user_id    INT    NOT NULL,
     rol_id     INT    NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
