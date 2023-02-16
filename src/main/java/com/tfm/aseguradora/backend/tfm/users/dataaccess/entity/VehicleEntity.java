@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.*;
-import java.util.List;
 
 @Getter
 @Setter

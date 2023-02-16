@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.stream.*;
 
 @Slf4j
 @RestController
@@ -46,4 +49,22 @@ public class SecurityControllerImpl implements SecurityApi {
         return ResponseEntity.ok(tokenInfo);
     }
 
+    @Override
+    public ResponseEntity<SessionInfoDto> validateToken(String authorization) {
+
+        authorization = authorization.replace("Bearer ", "");
+
+        var mail = jwtUtilService.extractUsername(authorization);
+
+        var userDetails = usuarioDetailsService.loadUserByUsername(mail);
+
+        jwtUtilService.validateToken(authorization, userDetails);
+
+        var sessionInfo = new SessionInfoDto();
+        sessionInfo.setMail(mail);
+        sessionInfo.setRoles(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));
+
+        return ResponseEntity.ok(sessionInfo);
+    }
 }

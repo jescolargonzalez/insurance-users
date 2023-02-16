@@ -15,7 +15,7 @@ paths:
   /security/authenticate:
     post:
       tags:
-        - user
+        - security
       summary: Generate Token
       description: This can only be done by the logged in user.
       operationId: authenticateUser
@@ -32,6 +32,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenInfo'
+
+  /security/token/validation:
+    get:
+      tags:
+        - security
+      summary: Validate Token
+      description: Validate pre generated token
+      operationId: validateToken
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionInfo'
+        '401':
+          description: devuelto si el token ya no es valido
 
   /users:
     post:
@@ -275,8 +297,8 @@ components:
           example: Santafe , x5 , mustang...
         fechaMatriculacion:
           type: string
-          format: Date <'Y-m-d'>
-          example: 2023-1-1
+          format: date
+          example: 2023-12-23
         matricula:
           type: string
         kilometros:
@@ -306,6 +328,15 @@ components:
         jwtToken:
           type: string
 
+    SessionInfo:
+      type: object
+      properties:
+        mail:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
 
     ErrorMessage:
       type: object

@@ -5,13 +5,11 @@ import com.tfm.aseguradora.backend.tfm.users.dataaccess.repository.*;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
 import com.tfm.aseguradora.backend.tfm.users.service.exception.*;
 import com.tfm.aseguradora.backend.tfm.users.service.mapper.UserMapper;
-import io.swagger.models.auth.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.*;
 
-import java.lang.reflect.*;
 import java.util.*;
 import java.util.stream.*;
 

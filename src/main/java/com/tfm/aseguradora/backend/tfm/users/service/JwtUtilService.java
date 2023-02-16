@@ -1,8 +1,7 @@
 package com.tfm.aseguradora.backend.tfm.users.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.compression.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,6 @@ public class JwtUtilService {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        // Agregando informacion adicional como "claim"
         var rol = userDetails.getAuthorities().stream().collect(Collectors.toList());
         claims.put("rol", rol);
         return createToken(claims, userDetails.getUsername());
@@ -56,6 +54,7 @@ public class JwtUtilService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY)
+                .compressWith(new GzipCompressionCodec())
                 .compact();
     }
 
