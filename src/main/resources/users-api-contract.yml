@@ -77,6 +77,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+    get:
+      tags:
+        - user
+      summary: Get users
+      description: ''
+      operationId: getUsers
+      parameters:
+        - in: query
+          name: dni
+          description: 'The dni that needs to be fetched. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: mail
+          description: 'The mail that needs to be fetched. '
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersListWrapper'
+        '400':
+          description: Invalid dni or email supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: dni or email not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /users/{id}:
     get:
       tags:
@@ -162,76 +200,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-
-  /users/0/{dni}:
-    get:
-      tags:
-        - user
-      summary: Get user by dni
-      description: ''
-      operationId: getUserByDni
-      parameters:
-        - in: path
-          name: dni
-          description: 'The dni that needs to be fetched. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid dni supplied
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '404':
-          description: dni not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-
-  /users/1/{mail}:
-    get:
-      tags:
-        - user
-      summary: Get user by mail
-      description: ''
-      operationId: getUserByMail
-      parameters:
-        - in: path
-          name: mail
-          description: 'The mail that needs to be fetched. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid mail supplied
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '404':
-          description: mail not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-
-
 
   /vehicles:
     get:
@@ -332,7 +300,7 @@ components:
         roles:
           type: array
           items:
-            type: integer
+              $ref: '#/components/schemas/Rol'
       required:
         - dni
         - name
@@ -343,6 +311,22 @@ components:
         - address
         - password
         - phone
+
+    UsersListWrapper:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+
+    Rol:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
 
     VehiclesListWrapper:
       type: object

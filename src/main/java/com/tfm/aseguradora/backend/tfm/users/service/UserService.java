@@ -26,6 +26,8 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+
+    @Transactional(readOnly = true)
     public UserDomain findById(int id){
         Optional<UserEntity> entityOptional = userJpaRepository.findById(id);
         if(entityOptional.isPresent()){
@@ -77,6 +79,7 @@ public class UserService {
         }
     }
 
+    @Transactional(readOnly = true)
     public UserDomain findByDni(String dniPropietario) {
 
         var userOpt = userJpaRepository.findByDni(dniPropietario);
@@ -89,7 +92,7 @@ public class UserService {
         }
     }
 
-
+    @Transactional(readOnly = true)
     public UserDomain findByMail(String email) {
         var userOpt = userJpaRepository.findByMail(email);
 
@@ -100,4 +103,18 @@ public class UserService {
             throw new ResourceNotFoundException(UserDomain.class, email);
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<UserDomain> findAll() {
+        var auxEnt = userJpaRepository.findAll();
+        var auxDom = auxEnt.stream().map(userMapper::fromEntityToDomain).collect(Collectors.toList());
+
+        if(!auxDom.isEmpty()){
+            return auxDom;
+        }else{
+            throw new BadRequestException("Algo no ha ido bien");
+        }
+
+    }
+
 }

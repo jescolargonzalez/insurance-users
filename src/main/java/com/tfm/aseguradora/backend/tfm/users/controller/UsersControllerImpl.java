@@ -1,11 +1,10 @@
 package com.tfm.aseguradora.backend.tfm.users.controller;
 
-
 import com.tfm.aseguradora.backend.tfm.users.controller.mapper.UserDtoMapper;
 import com.tfm.aseguradora.backend.tfm.users.service.UserService;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
 
-import com.tfm.aseguradora.generated.backend.tfm.users.controller.UsersApi;
+import com.tfm.aseguradora.generated.backend.tfm.users.controller.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -13,9 +12,8 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import com.tfm.aseguradora.generated.backend.tfm.users.controller.UserDto;
-
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.*;
 
 @Slf4j
 @RestController
@@ -59,16 +57,33 @@ public class UsersControllerImpl implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<UserDto> getUserByDni(String dni) {
-        UserDomain aux = userService.findByDni(dni);
-        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
+    public ResponseEntity<UsersListWrapperDto> getUsers(String dni, String mail) {
+        if (dni != null) {
+            UserDomain aux = userService.findByDni(dni);
+            var userDto = userDtoMapper.fromDomainToDTO(aux);
+            var userDtoList = new ArrayList<UserDto>();
+            userDtoList.add(userDto);
+            var response = new UsersListWrapperDto();
+            response.setUsers(userDtoList);
+            return ResponseEntity.ok(response);
+        }
+        else if (mail != null) {
+            UserDomain aux = userService.findByMail(mail);
+            var userDto = userDtoMapper.fromDomainToDTO(aux);
+            var userDtoList = new ArrayList<UserDto>();
+            userDtoList.add(userDto);
+            var response = new UsersListWrapperDto();
+            response.setUsers(userDtoList);
+            return ResponseEntity.ok(response);
+        }
+        else {
+            var aux = userService.findAll();
+            var aux1 = aux.stream().map(userDtoMapper::fromDomainToDTO).collect(Collectors.toList());
+            var response = new UsersListWrapperDto();
+            response.setUsers(aux1);
+            return ResponseEntity.ok(response);
+        }
     }
-    @Override
-    public ResponseEntity<UserDto> getUserByMail(String email) {
-        UserDomain aux = userService.findByMail(email);
-        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
-    }
-
 
     @Override
     public ResponseEntity<UserDto> updateUser(String id, UserDto userDto) {
