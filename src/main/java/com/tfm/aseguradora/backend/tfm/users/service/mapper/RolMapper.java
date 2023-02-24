@@ -7,5 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RolMapper {
-    RolDomain frontEntityToDomain(RolEntity RolEntity);
+    RolDomain fromEntityToDomain(RolEntity RolEntity);
+
+ //   RolEntity fromDomainToEntity(RolDomain rolDomain);
 }

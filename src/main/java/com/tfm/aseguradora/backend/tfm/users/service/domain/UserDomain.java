@@ -1,10 +1,12 @@
 package com.tfm.aseguradora.backend.tfm.users.service.domain;
 
 
-import lombok.Data;
+import lombok.*;
 
-import java.util.List;
-@Data
+import java.util.*;
+
+@Getter
+@Setter
 public class UserDomain {
 
     private Integer id;

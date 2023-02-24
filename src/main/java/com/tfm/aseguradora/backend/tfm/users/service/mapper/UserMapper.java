@@ -8,7 +8,7 @@ import org.mapstruct.*;
 public interface UserMapper {
 
     @Mapping(source = "pass", target = "pass", ignore = true)
-    UserDomain frontEntityToDomain(UserEntity userEntity);
+    UserDomain fromEntityToDomain(UserEntity userEntity);
 
     @Mapping(source = "roles", target = "roles", ignore = true)
     UserEntity fromDomainToEntity(UserDomain userDomain);

@@ -11,6 +11,8 @@ tags:
     description: Operations about user
   - name: vehicle
     description: Operations about vehicle
+  - name: security
+    description: Operations about JWT
 paths:
   /security/authenticate:
     post:
@@ -160,6 +162,76 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
+  /users/0/{dni}:
+    get:
+      tags:
+        - user
+      summary: Get user by dni
+      description: ''
+      operationId: getUserByDni
+      parameters:
+        - in: path
+          name: dni
+          description: 'The dni that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid dni supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: dni not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /users/1/{mail}:
+    get:
+      tags:
+        - user
+      summary: Get user by mail
+      description: ''
+      operationId: getUserByMail
+      parameters:
+        - in: path
+          name: mail
+          description: 'The mail that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid mail supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: mail not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+
 
   /vehicles:
     get:
@@ -320,7 +392,6 @@ components:
           type: string
         password:
           type: string
-
 
     TokenInfo:
       type: object

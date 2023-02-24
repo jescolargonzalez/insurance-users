@@ -29,7 +29,7 @@ public class UserService {
     public UserDomain findById(int id){
         Optional<UserEntity> entityOptional = userJpaRepository.findById(id);
         if(entityOptional.isPresent()){
-           return userMapper.frontEntityToDomain(entityOptional.get());
+           return userMapper.fromEntityToDomain(entityOptional.get());
         }
         else {
             throw new ResourceNotFoundException(UserDomain.class, id);
@@ -47,7 +47,7 @@ public class UserService {
 
         userEntity = userJpaRepository.save(userEntity);
 
-        return userMapper.frontEntityToDomain(userEntity);
+        return userMapper.fromEntityToDomain(userEntity);
     }
 
     @Transactional
@@ -70,7 +70,7 @@ public class UserService {
         if (userOpt.isPresent()) {
             var userEntity = userOpt.get();
             userEntity = userMapper.update(userEntity, userDomain);
-            return userMapper.frontEntityToDomain(userEntity);
+            return userMapper.fromEntityToDomain(userEntity);
         }
         else {
             throw new ResourceNotFoundException(UserDomain.class, id);
@@ -82,11 +82,22 @@ public class UserService {
         var userOpt = userJpaRepository.findByDni(dniPropietario);
 
         if(userOpt.isPresent()) {
-            return userMapper.frontEntityToDomain(userOpt.get());
+            return userMapper.fromEntityToDomain(userOpt.get());
         }
         else {
             throw new ResourceNotFoundException(UserDomain.class, dniPropietario);
         }
     }
 
+
+    public UserDomain findByMail(String email) {
+        var userOpt = userJpaRepository.findByMail(email);
+
+        if(userOpt.isPresent()) {
+            return userMapper.fromEntityToDomain(userOpt.get());
+        }
+        else {
+            throw new ResourceNotFoundException(UserDomain.class, email);
+        }
+    }
 }

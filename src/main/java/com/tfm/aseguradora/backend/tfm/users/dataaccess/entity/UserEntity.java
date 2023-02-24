@@ -19,14 +19,19 @@ public class UserEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "dni")
     private String dni;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "apellidos")
     private String apellidos;
+
     @Column(name = "mail")
     private String mail;
+
     @Column(name = "pass")
     private String pass;
 
@@ -65,9 +70,9 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="rol_id", nullable = false)
     )
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RolEntity> roles;
-
 
     @OneToMany(mappedBy = "user")
     private List<VehicleEntity> vehicles;

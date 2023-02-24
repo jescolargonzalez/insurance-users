@@ -4,7 +4,7 @@ package com.tfm.aseguradora.backend.tfm.users.controller;
 import com.tfm.aseguradora.backend.tfm.users.controller.mapper.UserDtoMapper;
 import com.tfm.aseguradora.backend.tfm.users.service.UserService;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
-import com.tfm.aseguradora.backend.tfm.users.service.exception.*;
+
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.UsersApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +57,18 @@ public class UsersControllerImpl implements UsersApi {
         UserDomain aux = userService.findById(Integer.parseInt(id));
         return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
     }
+
+    @Override
+    public ResponseEntity<UserDto> getUserByDni(String dni) {
+        UserDomain aux = userService.findByDni(dni);
+        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
+    }
+    @Override
+    public ResponseEntity<UserDto> getUserByMail(String email) {
+        UserDomain aux = userService.findByMail(email);
+        return ResponseEntity.ok(userDtoMapper.fromDomainToDTO(aux));
+    }
+
 
     @Override
     public ResponseEntity<UserDto> updateUser(String id, UserDto userDto) {
