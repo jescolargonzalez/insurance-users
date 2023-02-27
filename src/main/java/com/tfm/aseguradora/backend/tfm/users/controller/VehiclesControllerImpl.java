@@ -67,4 +67,13 @@ public class VehiclesControllerImpl implements VehiclesApi {
         }
     }
 
+    @Override
+    public ResponseEntity<VehicleDto> getVehiclesById(Integer id) {
+        var vehicleDomain = vehiclesService.findById(id);
+
+        var vehicleDto = vehicleDtoMapper.fromDomainToDto(vehicleDomain);
+
+        return ResponseEntity.ok(vehicleDto);
+    }
+
 }

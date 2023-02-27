@@ -28,10 +28,6 @@ CREATE TABLE IF NOT EXISTS roles (
     PRIMARY KEY (id)
 );
 
-INSERT INTO roles (nombre) VALUES ('operador');
-INSERT INTO roles (nombre) VALUES ('cliente');
-INSERT INTO roles (nombre) VALUES ('administrador');
-
 CREATE TABLE IF NOT EXISTS users_roles (
     user_id    INT    NOT NULL,
     rol_id     INT    NOT NULL,
@@ -49,8 +45,30 @@ CREATE TABLE `vehicles`
     `kilometros`          INT(11) NOT NULL,
     `create_time`         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `update_time`         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP() on UPDATE CURRENT_TIMESTAMP (),
-    `deleted`             TINYINT(4) generated always AS (0) virtual,
+    `deleted`             TINYINT(4) NOT NULL DEFAULT 0,
     `user_id`             INT(11) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) engine = innodb auto_increment = 1 DEFAULT charset = utf8mb4;
+
+
+/*INSERTS*/
+
+
+INSERT INTO roles (nombre) VALUES ('operador');
+INSERT INTO roles (nombre) VALUES ('cliente');
+INSERT INTO roles (nombre) VALUES ('administrador');
+
+
+INSERT INTO users (nombre, apellidos, dni, mail, pass, phone, pais, ciudad, address, iban, birthdate)
+VALUES ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', '$12$kTxd0.l1s2TnF5uC3B75HeUSD1Snlpl1/v7cQNZCBy6/JgTQlipkO',
+        '666666666', 'ESP', 'mdz', 'calle falsa 123', 'es2312341', '1990-02-08');
+
+
+INSERT INTO users_roles (user_id, rol_id) VALUES (1, 1);
+INSERT INTO users_roles (user_id, rol_id) VALUES (1, 2);
+INSERT INTO users_roles (user_id, rol_id) VALUES (1, 3);
+
+
+INSERT INTO vehicles (matricula, marca, modelo, fecha_matriculacion, kilometros, user_id)
+VALUES ('9579-JRX', 'Peugeot', '508', '2016-01-01', 200000, 1);

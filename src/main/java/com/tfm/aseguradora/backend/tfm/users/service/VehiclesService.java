@@ -44,5 +44,15 @@ public class VehiclesService {
 
     }
 
+    public VehicleDomain findById(Integer id) {
+        var vehicleOpt = vehicleJpaRepository.findById(id);
+
+        if (vehicleOpt.isPresent()) {
+            return vehicleMapper.fromEntityToDomain(vehicleOpt.get());
+        }
+        else {
+            throw new ResourceNotFoundException(VehicleDomain.class, id);
+        }
+    }
 
 }
