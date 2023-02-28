@@ -57,7 +57,7 @@ public class UsersControllerImpl implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<UsersListWrapperDto> getUsers(String dni, String mail) {
+    public ResponseEntity<UsersListWrapperDto> getUsers(String authorization, String dni, String mail) {
         if (dni != null) {
             UserDomain aux = userService.findByDni(dni);
             var userDto = userDtoMapper.fromDomainToDTO(aux);

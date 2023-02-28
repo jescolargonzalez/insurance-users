@@ -61,7 +61,7 @@ INSERT INTO roles (nombre) VALUES ('administrador');
 
 
 INSERT INTO users (nombre, apellidos, dni, mail, pass, phone, pais, ciudad, address, iban, birthdate)
-VALUES ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', '$12$kTxd0.l1s2TnF5uC3B75HeUSD1Snlpl1/v7cQNZCBy6/JgTQlipkO',
+VALUES ('superuser', 'superuser', '52896881-D', 'guillem.serra.calahorra@gmail.com', '$2a$12$gMwHKu9E2rPC9BmsIxXmjOwHd5rA4eihzBA1P9qCShFsO/GKkZTjG',
         '666666666', 'ESP', 'mdz', 'calle falsa 123', 'es2312341', '1990-02-08');
 
 
