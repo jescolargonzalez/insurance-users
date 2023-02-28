@@ -33,7 +33,7 @@ public class VehiclesService {
         if (userEntity.isPresent()) {
             var vehicleEntity = vehicleMapper.fromDomainToEntity(vehicle);
             vehicleEntity.setUser(userEntity.get());
-
+            vehicleEntity.setDeleted(Boolean.FALSE);
             vehicleEntity = vehicleJpaRepository.save(vehicleEntity);
 
             return vehicleMapper.fromEntityToDomain(vehicleEntity);
