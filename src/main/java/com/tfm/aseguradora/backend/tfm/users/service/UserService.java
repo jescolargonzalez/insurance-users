@@ -1,6 +1,6 @@
 package com.tfm.aseguradora.backend.tfm.users.service;
 
-import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.UserEntity;
+import com.tfm.aseguradora.backend.tfm.users.dataaccess.entity.*;
 import com.tfm.aseguradora.backend.tfm.users.dataaccess.repository.*;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
 import com.tfm.aseguradora.backend.tfm.users.service.exception.*;
@@ -37,18 +37,22 @@ public class UserService {
             throw new ResourceNotFoundException(UserDomain.class, id);
         }
     }
+    @Transactional
     public UserDomain save(UserDomain userDomain){
         var rolesIds = userDomain.getRoles().stream().map(RolDomain::getId)
                 .collect(Collectors.toList());
-
-        var roles = roleJpaRepository.findAllById(rolesIds);
-
         var userEntity = userMapper.fromDomainToEntity(userDomain);
+        var list = new ArrayList<RolEntity>();
 
-        userEntity.setRoles(roles);
-
+        if (userDomain.getRoles() == null || userDomain.getRoles().isEmpty()){
+            var rolClient = roleJpaRepository.findById(2);
+            rolClient.ifPresent(list::add);
+            userEntity.setRoles(list);
+        } else{
+            var roles = roleJpaRepository.findAllById(rolesIds);
+            userEntity.setRoles(roles);
+        }
         userEntity = userJpaRepository.save(userEntity);
-
         return userMapper.fromEntityToDomain(userEntity);
     }
 
