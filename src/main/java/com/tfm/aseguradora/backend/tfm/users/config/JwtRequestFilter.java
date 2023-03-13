@@ -25,9 +25,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtilService jwtUtilService;
 
+
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain)
+                                    throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
 
@@ -39,17 +43,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             username = jwtUtilService.extractUsername(jwt);
         }
 
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
             // CONSULTA A BASE DE DATOS (QUE ESTA HARDCODEADA EN ESTE EJEMPLO) Y DEVUELVE UN OBJETO QUE CONTIENE EL NOMBRE Y LA CONTRASEÑA
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
             // AHORA VALIDA SI EL TOKEN ES VALIDO (SI EL USUARIO QUE VIENE EN EL JSON QUE HAY EN EL TOKEN COINCIDE CON EL DE BBDD Y
             // SI HA EXPIRADO O NO)
             if (jwtUtilService.validateToken(jwt, userDetails)) {
-
-
                 // EN ESTA MARAÑA DE CODIGO SE RELLENA EL SECURITY
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

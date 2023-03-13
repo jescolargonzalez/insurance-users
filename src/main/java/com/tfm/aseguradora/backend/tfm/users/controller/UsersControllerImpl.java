@@ -5,11 +5,12 @@ import com.tfm.aseguradora.backend.tfm.users.service.UserService;
 import com.tfm.aseguradora.backend.tfm.users.service.domain.*;
 
 import com.tfm.aseguradora.generated.backend.tfm.users.controller.*;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.*;
@@ -57,7 +58,7 @@ public class UsersControllerImpl implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<UsersListWrapperDto> getUsers(String authorization, String dni, String mail) {
+    public ResponseEntity<UsersListWrapperDto> getUsers(String authorization, String dni, String mail, String skipSecurity) {
         if (dni != null) {
             UserDomain aux = userService.findByDni(dni);
             var userDto = userDtoMapper.fromDomainToDTO(aux);

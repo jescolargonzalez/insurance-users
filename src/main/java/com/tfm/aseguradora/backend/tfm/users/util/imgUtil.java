@@ -6,7 +6,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-public class Util {
+public class imgUtil {
     // compress the image bytes before storing it in the database
     public static byte[] compressZLib(byte[] data) {
         Deflater deflater = new Deflater();

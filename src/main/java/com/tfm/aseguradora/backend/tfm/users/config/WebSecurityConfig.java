@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+
+
     /*
      * (1) Spring Security’s HTTP Basic Authentication support in is enabled by default. However, as soon as any servlet
      * based configuration is provided, HTTP Basic must be explicitly provided.
